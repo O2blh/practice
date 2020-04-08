@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>两栏布局</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            overflow-y: hidden;
+        }
+        
+        .left {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 300px;
+            background-color: blue;
+        }
+        
+        .right {
+            height: 100%;
+            margin-left: 300px;
+            background-color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="left"></div>
+    <div class="right"></div>
+</body>
+
+</html>
