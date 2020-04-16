@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canva验证码</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        .wrapper {
+            margin: 30px;
+            width: 345px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        .inputBox {
+            position: relative;
+        }
+        
+        .inputBox input {
+            display: inline-block;
+            width: 300px;
+            outline: none;
+            padding: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        
+        .inputBox span {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin: -15px 0 0 7.5px;
+            height: 30px;
+            width: 30px;
+            background-image: url(./images/canvas/false.png);
+            background-size: 100% 100%;
+            display: none;
+        }
+        
+        .wrapper .error {
+            display: none;
+            margin-top: 10px;
+            color: red;
+            font-size: 12px;
+        }
+        
+        .canvasBox {
+            position: relative;
+            margin-top: 15px;
+        }
+        
+        .canvasBox .refresh {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -15px;
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-image: url(./images/canvas/refresh.png);
+            background-size: 30px 30px;
+            border: 0;
+            border-radius: 5px;
+        }
+        
+        .wrapper .submit {
+            margin-top: 15px;
+            padding: 10px 20px;
+            color: white;
+            background-color: rgb(26, 182, 26);
+            border: 0;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="inputBox">
+            <input id="VerifyCode" type="text" placeholder="请输入验证码">
+            <span></span>
+        </div>
+        <p class="error"></p>
+        <div class="canvasBox">
+            <canvas id="myCanvas" width="300" height="80" style="background-color: rgba(0,0,0,0.8);border-radius: 5px;"></canvas>
+            <input type="button" class="refresh">
+        </div>
+        <button class="submit">submit</button>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    var myCanvas = document.getElementById('myCanvas');
+    var arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    for (var i = 65; i <= 122; i++) {
+        if (i > 90 && i < 97) {
+            continue;
+        }
+        arr.push(String.fromCharCode(i));
+    }
+    var VerifyCode;
+    createCanvas();
+    bindEvent();
+
+    function bindEvent() {
+        $('.refresh').on('click', function() {
+            createCanvas();
+        });
+        $('.submit').on('click', function() {
+            CheckVerifyCode();
+            createCanvas();
+        });
+        $("#VerifyCode").blur(CheckVerifyCode);
+    }
+
+    function createCanvas() {
+        var code = createVerifyCode();
+        var ctx = myCanvas.getContext('2d');
+        ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+        ctx.font = "40px Arial";
+        ctx.strokeStyle = "white";
+        ctx.textAlign = "center";
+        ctx.setTransform(1, -0.1, 0, 1, 0, 10);
+        ctx.strokeText(code, myCanvas.width / 2, 50);
+    }
+
+    function createVerifyCode() {
+        VerifyCode = '';
+        var rs = "";
+        for (var i = 0; i < 6; i++) {
+            var s = arr[Math.floor(Math.random() * arr.length)];
+            VerifyCode += s;
+            rs += s + " ";
+        }
+        return rs;
+    }
+
+    function CheckVerifyCode() {
+        var inputStr = $('#VerifyCode').val();
+        if (inputStr == VerifyCode) {
+            $('.inputBox span').css({
+                'background-image': 'url("./images/canvas/true.png")',
+                'display': 'inline-block'
+            });
+            $('.error').hide();
+        } else {
+            $('.inputBox span').css({
+                'background-image': 'url("./images/canvas/false.png")',
+                'display': 'inline-block'
+            });
+            $('.error').css('display', 'block').html('验证码输入错误,请重新输入');
+        }
+
+    }
+</script>
+
+</html>
