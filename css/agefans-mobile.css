@@ -1,0 +1,56 @@
+@media only screen and (max-width:40em) and (min-width:0em) {
+    #root {
+        width: 100%;
+    }
+    #nav {
+        height: 40px;
+    }
+    #nav a {
+        height: 40px;
+        line-height: 40px;
+        font-size: 1.1em;
+        padding: 0 5px;
+    }
+    #top-search-form {
+        float: left;
+        width: 97%;
+    }
+    #new-tip1 {
+        margin-top: 55px!important;
+    }
+    #aside {
+        width: 100%;
+    }
+    #aside .block-title {
+        display: none;
+    }
+    #aside .one-new-anime-ji {
+        float: right;
+    }
+    #aside .hrspace {
+        display: none;
+    }
+    #new-anime-btns .new-anime-btn {
+        width: 13.2%;
+    }
+    #new-update {
+        display: none;
+    }
+    #article {
+        width: 100%;
+    }
+    .anime-icon {
+        width: 30.8%!important;
+        margin: 0.6%!important;
+    }
+    .anime-list .anime-icon:nth-child(10) {
+        display: none!important;
+    }
+    .anime-icon .anime-icon-image {
+        width: 100%;
+        height: auto;
+    }
+    #nav .search-form .search-input {
+        width: 78%;
+    }
+}
